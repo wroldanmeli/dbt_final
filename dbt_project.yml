@@ -1,0 +1,177 @@
+
+# Name your project! Project names should contain only lowercase characters
+# and underscores. A good package name should reflect your organization's
+# name or the intended use of these models
+name: 'BillingfacAllocationFinal'
+version: '1.7.11'
+config-version: 2
+
+# This setting configures which "profile" dbt uses for this project.
+profile: 'BillingfacAllocationFinal'
+
+# These configurations specify where dbt should look for different types of files.
+# The `model-paths` config, for example, states that models in this project can be
+# found in the "models/" directory. You probably won't need to change these!
+model-paths: ["models"]
+analysis-paths: ["analyses"]
+test-paths: ["tests"]
+seed-paths: ["seeds"]
+macro-paths: ["macros"]
+snapshot-paths: ["snapshots"]
+
+clean-targets:         # directories to be removed by `dbt clean`
+  - "target"
+  - "dbt_packages"
+
+vars:
+  default_high_dttm: '2030-12-31'
+  v_fecha_start: DATE(TIMESTAMP_TRUNC(CURRENT_TIMESTAMP(), day, "UTC") - INTERVAL 5 DAY)
+  v_fecha_end: DATE(TIMESTAMP_TRUNC(CURRENT_TIMESTAMP(), day, "UTC") - INTERVAL 1 DAY)
+  s_fecha_start: CAST(DATE(TIMESTAMP_TRUNC(CURRENT_TIMESTAMP(), day, "UTC") - INTERVAL 5 DAY) AS STRING)
+  s_fecha_end: CAST(DATE(TIMESTAMP_TRUNC(CURRENT_TIMESTAMP(), day, "UTC") - INTERVAL 1 DAY) AS STRING)
+  v_excess_mod: MOD(CAST(EXTRACT(HOUR FROM TIMESTAMP_TRUNC(CURRENT_TIMESTAMP(), hour, "UTC")) AS INT64) ,4)
+  v_fecha_start_dash  :  PARSE_DATE('%F', '2022-01-01')
+  v_start_date: 'None'
+  v_current_day: EXTRACT(DAY FROM CURRENT_DATE('UTC'))
+  v_current_datetime: CURRENT_DATETIME('UTC')
+  v_arridprocesosdelete: ARRAY<INT64>
+  #v_list_pipelines: "[3, 56, 66, 151, 155, 29]"
+  v_list_pipelines: "[]"
+  v_strobservation: 'Test dbt'
+
+models:
+  BillingfacAllocationFinal:
+    logical: 
+      final_tmp_process_output:
+          +tags: 
+             - logical
+      final_last_snapshot:
+          +tags: 
+             - logical
+    
+    substract: 
+      substract_get_OffFury_aws:
+          +tags: 
+             - substract
+      substract_get_OffFury_gcp:
+          +tags: 
+             - substract
+      substract_get_OffFury_oci:
+          +tags: 
+             - substract
+      substract_all_in_one:
+          +tags: 
+             - substract
+      substract_get_rules_fury:
+          +tags: 
+             - substract
+
+    intermediate:
+      final_tmp_BillingfacgetFury:
+          +tags: 
+             - intermediate
+      final_tmp_BillingfacgetOffFury:
+          +tags: 
+             - intermediate
+      final_tmp_BillingfacgetMelidata:
+          +tags: 
+             - intermediate    
+      final_tmp_BillingfacgetBigquery:
+          +tags: 
+             - intermediate 
+      final_tmp_BillingfacgetDatamesh:
+          +tags: 
+             - intermediate 
+      final_tmp_BillingfacgetOpenAI:
+          +tags: 
+             - intermediate             
+      final_tmp_BillingtabMelidataBIFinalCosts:
+          +tags: 
+             - intermediate  
+
+    temporal:
+      final_dupli_check_it:
+          +tags: 
+             - temporal             
+      final_dupli_check_it_reinsert_it:
+          +tags: 
+             - temporal  
+      final_prefacIT_nodup:
+          +tags: 
+             - temporal 
+      final_prefacIT:
+          +tags: 
+             - temporal 
+      final_prefacFI:
+          +tags: 
+             - temporal  
+      final_get_finance_limits:
+          +tags: 
+             - temporal   
+      final_tmp_consolidate:
+          +tags: 
+             - temporal  
+
+    merge:      
+      BillingfacAllocationFinal:   
+          +tags: 
+             - merge  
+      BillingfacAllocationFinal_Finance:   
+          +tags: 
+             - merge  
+      BillingBitacoraRepro:   
+          +tags: 
+             - merge  
+
+    dashboard:      
+      final_BillingDashControlBase:   
+          +tags: 
+             - dashboard    
+      final_BillingDashControlBaseOffFury:   
+          +tags: 
+             - dashboard 
+      final_BillingDashHistoFullAccountOffFury:   
+          +tags: 
+             - dashboard 
+      final_BillingDashHistoRankingOffFury:   
+          +tags: 
+             - dashboard 
+      final_tmp_BillingDashHistoFullAccountOffFury:   
+          +tags: 
+             - dashboard 
+      final_tmp_BillingDashHistoFullSubstract:   
+          +tags: 
+             - dashboard 
+
+
+    bitacora:                    
+      final_last_dashOffFury_values:   
+          +tags: 
+             - bitacora 
+      final_prev_dashfury_values:   
+          +tags: 
+             - bitacora     
+      final_change_fury:   
+          +tags: 
+             - bitacora   
+      final_prev_dashOffFury_values:   
+          +tags: 
+             - bitacora       
+      final_new_record_bitacora:   
+          +tags: 
+             - bitacora 
+      final_prev_final_values:   
+          +tags: 
+             - bitacora 
+      final_prev_final_values:   
+          +tags: 
+             - bitacora 
+      final_change_offfury :   
+          +tags: 
+             - bitacora 
+      final_for_newrecord_fury :   
+          +tags: 
+             - bitacora 
+      final_for_newrecord_offfury :   
+          +tags: 
+             - bitacora 

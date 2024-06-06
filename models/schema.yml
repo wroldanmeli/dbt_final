@@ -1,0 +1,133 @@
+version: 2
+
+description:  Construccion Modelo Distribuido y Proceso Calidad  de la data de Oportunidades
+ 
+sources:
+  - name : ProcessedData
+    tables:
+      - name: __TABLES__
+      - name: BillingtabFuryAllocation
+      - name: BillingtabMelidata
+      - name: BillingtabBQMeliBIData
+      - name: BillingtabOffFury
+      - name: BillingtabGENAI
+      - name: BillingtabBQDatamesh
+      - name: BillingdimtagsNames
+      - name: BillingtabMelidataBIFinalCosts
+
+
+  - name : WorkData
+    tables:
+      - name: BillingOracleAnnualUnified
+
+  - name : ManagementData
+    tables:
+      - name: tproceso
+  
+  - name : RawData
+    tables:
+      - name: billing_edp
+
+  - name : GoogleCloudBillingDetail
+    tables:
+      - name: BillingDetailExport
+
+
+models:
+  - name : final_tmp_process_output 
+    description: genera lista de id proceso 
+  - name: final_last_snapshot
+    description: Obtiene estadisticas del ultimo snapshot tomado
+  - name: substract_get_OffFury_aws
+    description: Basdo en las reglas de dimtagnames, obtiene los datos a restar 
+  - name: substract_get_OffFury_gcp
+    description: Basdo en las reglas de dimtagnames, obtiene los datos a restar   
+  - name: substract_get_OffFury_oci
+    description: Basdo en las reglas de dimtagnames, obtiene los datos a restar
+  - name: substract_all_in_one
+    description: Concatena los resultados de todas la data a restar para el periodo
+  - name: substract_get_rules_fury
+    description: Obtiene las reglas de subctract de Aplicaciones Fury que se restan en la Final 
+  - name: final_tmp_BillingfacgetFury
+    description: Prepara los datos de la tabla billingtabFuryAllcoation previo a la carga a la Final
+  - name: final_tmp_BillingfacgetOffFury
+    description: Prepara los datos de la tabla billingtabOfffuryn previo a la carga a la Final
+  - name: final_tmp_BillingfacgetMelidata
+    description: Prepara los datos de la tabla billingtabOMelidata previo a la carga a la Final
+  - name: final_tmp_BillingfacgetBigquery
+    description: Prepara los datos de la tabla bigquery previo a la carga a la Final
+  - name: final_tmp_BillingfacgetDatamesh
+    description: Prepara los datos de la tabla bigquery - datamesh previo a la carga a la Final 
+  - name: final_tmp_BillingfacgetOpenAI
+    description: Prepara los datos de la tabla OpenIA previo a la carga a la Final    
+  - name: final_tmp_BillingtabMelidataBIFinalCosts
+    description: Prepara los datos de la tabla MelidataBI previo a la carga a la Final  
+  - name: final_tmp_consolidate
+    description: Prepara los datos de la tabla MelidataBI previo a la carga a la Final 
+  - name: final_dupli_check_it
+    description: Identificar duplciados en la tabla consolidate 
+  - name: final_dupli_check_it_reinsert_it
+    description: Obtiene unicamente el registro mas reciente de los duplicados para posterior insercion 
+  - name: final_prefacIT_nodup
+    description: Reinserta en la tabla consolidate, los registros que tenian duplicados    
+  - name: final_prefacIT
+    description: Prepara la tabla previa a la final para IT 
+  - name: final_prefacFI
+    description: Prepara la tabla previa a la final para Finanzas 
+  - name: final_get_finance_limits
+    description: Genera los limites para Finanzas
+  - name: BillingfacAllocationFinal
+    description: Tabla Incremental  Final IT
+  - name: BillingfacAllocationFinal_Finance
+    description: Tabla Incremental  Final Finanzas
+  - name: BillingBitacoraRepro
+    description: Tabla Incremental Bitacora 
+  - name: final_BillingDashControlBase
+    description: Tabla dashboard de Fury 
+  - name: final_BillingDashControlBaseOffFury
+    description: Tabla dashboard de OffFury 
+  - name: final_BillingDashHistoFullAccountOffFury
+    description: Tabla historica  
+  - name: final_BillingDashHistoRankingOffFury
+    description: Tabla historica  
+  - name: final_tmp_BillingDashHistoFullSubstract
+    description: Tabla historica 
+  - name: final_last_dashOffFury_values
+    description: Valores previos en snapshot para tabla OffFury  para la bitacora de reprocesos
+  - name: final_last_dashfury_values
+    description: Valores recientes en la tabla dash de Fury  para la bitacora de reprocesos 
+  - name: final_prev_dashfury_values
+    description: Valores anteriores al reproceso en la tabla dash de Fury  para la bitacora de reprocesos 
+  - name: final_change_fury
+    description: Diferencias entre las tablas last y prev para el grupo Fury para la bitacora de reprocesos                 
+  - name: final_prev_dashOffFury_values 
+    description: Valores recientes en la tabla dash de OffFury  para la bitacora de reprocesos 
+  - name: final_new_record_bitacora 
+    description: Entrega el registro completo para la tabla de reprocesos Bitacora   
+  - name: final_prev_final_values 
+    description: Entrega el registro completo para la tabla de reprocesos Bitacora  
+  - name: final_change_offfury 
+    description: Entrega el registro completo para la tabla de reprocesos Bitacora  
+  - name: final_for_newrecord_offfury 
+    description: Entrega el registro completo para la tabla de reprocesos Bitacora 
+  - name: final_for_newrecord_fury 
+    description: Entrega el registro completo para la tabla de reprocesos Bitacora     
+
+
+                  
+
+
+
+
+
+
+
+    
+
+
+    
+
+    
+
+            
+
