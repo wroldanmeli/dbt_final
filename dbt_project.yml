@@ -27,15 +27,14 @@ vars:
   default_high_dttm: '2030-12-31'
   #v_fecha_start: DATE(TIMESTAMP_TRUNC(CURRENT_TIMESTAMP(), day, "UTC") - INTERVAL 5 DAY)
   #v_fecha_end: DATE(TIMESTAMP_TRUNC(CURRENT_TIMESTAMP(), day, "UTC") - INTERVAL 1 DAY)
-  v_excess_mod: MOD(CAST(EXTRACT(HOUR FROM TIMESTAMP_TRUNC(CURRENT_TIMESTAMP(), hour, "UTC")) AS INT64) ,4)
+  #v_excess_mod: MOD(CAST(EXTRACT(HOUR FROM TIMESTAMP_TRUNC(CURRENT_TIMESTAMP(), hour, "UTC")) AS INT64) ,4)
   v_fecha_start_dash  :  PARSE_DATE('%F', '2022-01-01')
-  v_start_date: 'None'
   v_current_day: EXTRACT(DAY FROM CURRENT_DATE('UTC'))
   v_current_datetime: CURRENT_DATETIME('UTC')
   v_arridprocesosdelete: ARRAY<INT64>
   #v_list_pipelines: "[3, 56, 66, 151, 155, 29]"
-  v_list_pipelines: "[]"
-  v_strobservation: 'Test dbt'
+  #v_list_pipelines: "[]"
+  #v_strobservation: 'Test dbt'
 
 models:
   BillingfacAllocationFinal:

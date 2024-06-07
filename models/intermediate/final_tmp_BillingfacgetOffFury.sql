@@ -50,8 +50,8 @@ SELECT
               AND BillingtabOffFury.billing_key =BillingtabOffFurysubtract.billing_key
               AND BillingtabOffFury.service_name =BillingtabOffFurysubtract.service_name
               AND BillingtabOffFury.billing_unit =BillingtabOffFurysubtract.billing_unit)
-      WHERE DATE(BillingtabOffFury.datetime) >= '{{var('v_fecha_start')}}'
-            AND DATE(BillingtabOffFury.datetime) <= '{{var('v_fecha_end')}}' 
+      WHERE DATE(BillingtabOffFury.datetime) >= {{ get_start_date() }}
+            AND DATE(BillingtabOffFury.datetime) <= {{ get_end_date() }} 
             AND (BillingtabOffFury.total_cost - IFNULL(BillingtabOffFurysubtract.total_cost,0)) > 0 
              AND EXISTS(SELECT 'X' FROM {{ ref('final_tmp_process_output')}} as tempprocesos WHERE BillingtabOffFury.idproceso=tempprocesos.idproceso)
            

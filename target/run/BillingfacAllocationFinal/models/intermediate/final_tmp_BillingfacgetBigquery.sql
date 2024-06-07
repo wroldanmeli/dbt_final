@@ -40,7 +40,7 @@ SELECT
           super_bu_name, 
           load_date, 
           CURRENT_DATETIME('UTC') AS update_date,
-          'Test dbt' observation,
+          'Test Final dbt' observation,
           CAST('155' AS INT64)  as idprocesoanterior
       FROM `metrics-streams-dev`.`ProcessedData`.`BillingtabBQMeliBIData`  AS BillingtabBQMeliBIData
       WHERE DATE(datetime) >= '2024-06-01'

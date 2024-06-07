@@ -20,8 +20,8 @@
                 FROM 
                 {{ref('final_BillingDashControlBase')}}
                 WHERE 
-                day BETWEEN  '{{ var("v_fecha_start") }}' 
-                AND '{{ var("v_fecha_end") }}'
+                day BETWEEN  {{ get_start_date() }} 
+                AND {{ get_end_date() }}
                 EXCEPT 
                 DISTINCT 
                 SELECT day,
@@ -32,8 +32,8 @@
                 FROM 
                 {{prev_snapshot_dashfury_name}} 
                 WHERE 
-                day BETWEEN '{{ var("v_fecha_start") }}' 
-                AND '{{ var("v_fecha_end") }}'
+                day BETWEEN {{ get_start_date() }} 
+                AND {{ get_end_date() }}
             ),
             
              dif_2 AS (
@@ -45,8 +45,8 @@
         FROM 
           {{prev_snapshot_dashfury_name}} 
         WHERE 
-          day BETWEEN '{{ var("v_fecha_start") }}' 
-          AND '{{ var("v_fecha_end") }}' 
+          day BETWEEN {{ get_start_date() }} 
+          AND {{ get_end_date() }} 
         EXCEPT 
           DISTINCT 
         SELECT day,
@@ -57,8 +57,8 @@
         FROM
           {{ref('final_BillingDashControlBase')}}
         WHERE 
-          day BETWEEN '{{ var("v_fecha_start") }}' 
-          AND '{{ var("v_fecha_end") }}'
+          day BETWEEN {{ get_start_date() }} 
+          AND {{ get_end_date() }}
       )
         
         SELECT 'LasttoPrev' sentido, * FROM dif_1

@@ -11,7 +11,7 @@
                 DISTINCT 
                 SELECT * 
                 FROM 
-                ProcessedData_REPRO_snapshots.BillingDashControlBaseOffFury_20240607013700 
+                ProcessedData_REPRO_snapshots.BillingDashControlBaseOffFury_20240607153300 
                 WHERE 
                 day BETWEEN '2024-06-01' 
                 AND '2024-06-04'
@@ -20,7 +20,7 @@
              dif_2 AS (
                 SELECT * 
                 FROM 
-                ProcessedData_REPRO_snapshots.BillingDashControlBaseOffFury_20240607013700 
+                ProcessedData_REPRO_snapshots.BillingDashControlBaseOffFury_20240607153300 
                 WHERE 
                 day BETWEEN '2024-06-01' 
                 AND '2024-06-04' 

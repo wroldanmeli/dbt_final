@@ -30,7 +30,7 @@ WITH dif_1 AS (
                     conteo,
                     COALESCE(CAST(total_cost AS FLOAT64),null,0) AS total_cost 
                 FROM 
-                ProcessedData_REPRO_snapshots.BillingDashControlBase_20240607013700 
+                ProcessedData_REPRO_snapshots.BillingDashControlBase_20240607153300 
                 WHERE 
                 day BETWEEN '2024-06-01' 
                 AND '2024-06-04'
@@ -43,7 +43,7 @@ WITH dif_1 AS (
                  conteo,
                  COALESCE(CAST(total_cost AS FLOAT64),null,0) AS total_cost 
         FROM 
-          ProcessedData_REPRO_snapshots.BillingDashControlBase_20240607013700 
+          ProcessedData_REPRO_snapshots.BillingDashControlBase_20240607153300 
         WHERE 
           day BETWEEN '2024-06-01' 
           AND '2024-06-04' 

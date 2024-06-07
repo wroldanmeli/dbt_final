@@ -3,7 +3,7 @@
 
 
 WITH 
-    get_lista AS (SELECT '[]' as lista_in),
+    get_lista AS (SELECT '[3, 56, 66, 151, 155, 29]' as lista_in),
     full_proc AS (SELECT DISTINCT idprocesopadre as idproceso FROM `metrics-streams-dev`.`ManagementData`.`tproceso` ),
     list_cut AS (SELECT REPLACE(REPLACE(REPLACE(lista_in,'[',''),']',''),' ','')  as lista_cut FROM get_lista ),
     proc_input AS (SELECT ARRAY_CONCAT(ARRAY_AGG(CAST(listado AS INT64)),[44]) array_process
@@ -12,6 +12,6 @@ WITH
     proc_output AS (SELECT A.idproceso FROM partial_list A WHERE EXISTS(SELECT 'X' FROM full_proc B WHERE A.idproceso = B.idproceso))                            
 
     
-    SELECT * FROM  
-       full_proc
+    SELECT * FROM 
+       proc_output
     

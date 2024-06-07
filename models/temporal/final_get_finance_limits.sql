@@ -21,8 +21,8 @@ WITH get_current_day AS (
     END AS limit_finance),
 
     get_range AS (SELECT limit_finance, 
-           '{{ var("v_fecha_start") }}' start_date, 
-           '{{ var("v_fecha_end") }}' end_date 
+           {{ get_start_date() }} start_date, 
+           {{ get_end_date() }} end_date 
     FROM get_current_day), 
 
     get_limits_ind AS (

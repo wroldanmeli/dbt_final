@@ -322,7 +322,7 @@ SELECT
       'GCP' AS provider
       ,current_date()  load_date	
       ,current_date() update_date
-      ,'Test dbt' as observation 
+      ,'Test Final dbt' as observation 
     FROM `metrics-streams-dev`.`GoogleCloudBillingDetail`.`BillingDetailExport` 
     WHERE
       PARTITIONTIME >= DATETIME_SUB(CAST(PARSE_DATE('%F', '2024-06-01') as TIMESTAMP), INTERVAL 1 DAY)

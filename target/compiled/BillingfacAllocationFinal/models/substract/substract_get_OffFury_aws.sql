@@ -695,7 +695,7 @@ SELECT
         ,'AWS' as provider
         ,current_date()  load_date  
         ,current_date() update_date
-        ,'Test dbt' as observation
+        ,'Test Final dbt' as observation
         FROM `metrics-streams-dev`.`RawData`.`billing_edp`  
         WHERE year >= 2024
               and year <= 2024

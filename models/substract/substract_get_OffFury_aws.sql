@@ -14,7 +14,7 @@
 {% set get_months = namespace(meses = ' ') %}
 
 {%- call statement('get_dates', fetch_result=True) -%}
-        SELECT EXTRACT(month FROM PARSE_DATE('%F', '{{var('v_fecha_end')}}')) as month_end, EXTRACT(month FROM PARSE_DATE('%F', '{{var('v_fecha_start')}}'))  as month_start, EXTRACT(year FROM PARSE_DATE('%F', '{{var('v_fecha_end')}}')) as year_end,  EXTRACT(year FROM PARSE_DATE('%F', '{{var('v_fecha_start')}}')) as year_start  
+        SELECT EXTRACT(month FROM PARSE_DATE('%F', {{ get_end_date() }})) as month_end, EXTRACT(month FROM PARSE_DATE('%F', {{ get_start_date() }}))  as month_start, EXTRACT(year FROM PARSE_DATE('%F', {{ get_end_date() }})) as year_end,  EXTRACT(year FROM PARSE_DATE('%F', {{ get_start_date() }})) as year_start  
 {%- endcall -%}
 {%- set states = load_result('get_dates') %}
 {%- set month_end = states['data'][0][0] %}
@@ -23,7 +23,7 @@
 {%- set year_start = states['data'][0][3] %}
 
 {% set query_str %}
-    select tag_key, operator, tag_value, account_id, '{{var('v_fecha_start')}}' from_date, '{{var('v_fecha_end')}}' to_date 
+    select tag_key, operator, tag_value, account_id, {{ get_start_date() }} from_date, {{ get_end_date() }} to_date 
     from {{ source('ProcessedData', 'BillingdimtagsNames') }} 
     WHERE origen='{{strorigen}}' AND sustraer=true
           AND provider= '{{strprovider}}'  AND account_id != 'all' AND tag_key = 'all'
@@ -36,7 +36,7 @@
 {% endfor %}
 
 {% set query_wh1 %}
-    select tag_key, operator, tag_value, account_id, '{{var('v_fecha_start')}}' from_date, '{{var('v_fecha_end')}}' to_date 
+    select tag_key, operator, tag_value, account_id, {{ get_start_date() }} from_date, {{ get_end_date() }} to_date 
     from {{ source('ProcessedData', 'BillingdimtagsNames') }} 
     WHERE origen='{{strorigen}}' AND sustraer=true
           AND provider= '{{strprovider}}'  AND account_id != 'all' AND tag_key != 'all'
@@ -49,7 +49,7 @@
 {% endfor %}
 
 {% set query_wh2 %}
-    select tag_key, operator, tag_value, account_id, '{{var('v_fecha_start')}}' from_date, '{{var('v_fecha_end')}}' to_date 
+    select tag_key, operator, tag_value, account_id, {{ get_start_date() }} from_date, {{ get_end_date() }} to_date 
     from {{ source('ProcessedData', 'BillingdimtagsNames') }} 
     WHERE origen='{{strorigen}}' AND sustraer=true
           AND provider= '{{strprovider}}'  AND account_id = 'all' 
@@ -98,7 +98,7 @@ SELECT
               and year <= {{year_end}}
               and month >= {{month_start}}
               and month <=  {{month_end}}
-              and date(line_item_usage_start_date) >= '{{var('v_fecha_start')}}'  and date(line_item_usage_start_date) <='{{var('v_fecha_end')}}' 
+              and date(line_item_usage_start_date) >= {{ get_start_date() }}  and date(line_item_usage_start_date) <={{ get_end_date() }} 
               AND line_item_line_item_type IN ('DiscountedUsage', 'Usage', 'RIFee', 'SavingsPlanCoveredUsage', 'Fee')
               AND line_item_usage_type NOT LIKE '%HeavyUsage%' 
               {{long_string_wh}}

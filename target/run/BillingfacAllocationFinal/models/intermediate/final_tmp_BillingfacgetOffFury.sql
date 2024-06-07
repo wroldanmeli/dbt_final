@@ -41,7 +41,7 @@ SELECT
           super_bu_name, 
           BillingtabOffFury.load_date, 
           CURRENT_DATETIME('UTC') AS update_date,
-          'Test dbt' observation, 
+          'Test Final dbt' observation, 
           BillingtabOffFury.idproceso  as idprocesoanterior
       FROM `metrics-streams-dev`.`ProcessedData`.`BillingtabOffFury` as BillingtabOffFury
       LEFT JOIN `metrics-streams-dev`.`ProcessedData`.`BillingtabOffFurysubtract` as BillingtabOffFurysubtract 

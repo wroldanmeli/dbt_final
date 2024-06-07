@@ -29,7 +29,7 @@ SELECT
           super_bu_name, 
           load_date, 
           CURRENT_DATETIME('UTC') AS update_date, 
-          'Test dbt' observation,
+          'Test Final dbt' observation,
           210 AS idprocesoanterior
 FROM `metrics-streams-dev`.`ProcessedData`.`BillingtabMelidataBIFinalCosts`  AS BillingtabMelidata
       WHERE DATE(datetime) >= '2024-06-01'

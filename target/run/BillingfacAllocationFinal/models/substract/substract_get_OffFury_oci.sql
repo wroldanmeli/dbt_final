@@ -52,7 +52,7 @@ SELECT
       'OCI' AS provider
       ,current_date()  load_date
       ,current_date() update_date
-      ,'Test dbt' as observation
+      ,'Test Final dbt' as observation
     FROM `metrics-streams-dev`.`WorkData`.`BillingOracleAnnualUnified`
     WHERE
         (cost_product_Description = "Exadata X9M Additional Storage Instance Meter"  AND  cost_lineItem_intervalUsageStart BETWEEN "2024-06-01" AND "2024-06-04") OR (cost_product_Description = "Exadata X8M Additional Storage Instance Meter"  AND  cost_lineItem_intervalUsageStart BETWEEN "2024-06-01" AND "2024-06-04") OR (cost_product_Description = "Exadata X9M Additional Compute Instance Meter"  AND  cost_lineItem_intervalUsageStart BETWEEN "2024-06-01" AND "2024-06-04") OR (cost_product_Description = "Database Exadata - Additional OCPUs - BYOL"  AND  cost_lineItem_intervalUsageStart BETWEEN "2024-06-01" AND "2024-06-04") OR (cost_product_Description = "Exadata X9M Quarter Rack Instance Meter"  AND  cost_lineItem_intervalUsageStart BETWEEN "2024-06-01" AND "2024-06-04") OR (cost_product_Description = "Exadata X8M Quarter Rack Instance Meter"  AND  cost_lineItem_intervalUsageStart BETWEEN "2024-06-01" AND "2024-06-04") OR (cost_product_Description = "Exadata X8M Additional Compute Instance Meter"  AND  cost_lineItem_intervalUsageStart BETWEEN "2024-06-01" AND "2024-06-04")

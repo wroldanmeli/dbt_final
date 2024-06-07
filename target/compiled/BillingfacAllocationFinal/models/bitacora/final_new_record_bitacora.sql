@@ -4,7 +4,7 @@
     SELECT 
       A.sufijo, 
       B.datetime,
-      'Test dbt' observation,
+      'Test Final dbt' observation,
       STRUCT(A.records, A.total_cost) AS last_final,
       STRUCT(B.records, B.total_cost) AS prev_final,
       STRUCT(C.records, C.total_cost) AS last_dash_fury,

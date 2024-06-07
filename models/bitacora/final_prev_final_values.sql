@@ -16,4 +16,4 @@
                 COUNT(1) records,
                 COALESCE(SUM(CAST(total_cost AS FLOAT64)),null,0) total_cost 
           FROM {{prev_snapshot_table_name}}
-          WHERE datetime BETWEEN '{{ var("v_fecha_start") }}' AND '{{ var("v_fecha_end") }}'
+          WHERE datetime BETWEEN {{ get_start_date() }} AND {{ get_start_date() }}

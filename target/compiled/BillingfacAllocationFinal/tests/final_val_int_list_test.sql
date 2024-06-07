@@ -4,9 +4,8 @@
 
 WITH 
     full_proc AS (SELECT DISTINCT idprocesopadre as idproceso FROM `metrics-streams-dev`.`ManagementData`.`tproceso` ), 
-    
-        get_lista AS (SELECT CONCAT('[', STRING_AGG(CONCAT(CAST(idproceso AS STRING)), ','), ']') AS lista_in
-                FROM ( SELECT DISTINCT idprocesopadre AS idproceso  FROM ManagementData.tproceso )),
+     
+        get_lista AS (SELECT '[3, 56, 66, 151, 155, 29]' as lista_in),
       
     list_cut AS (SELECT REPLACE(REPLACE(REPLACE(lista_in,'[',''),']',''),' ','')  as lista_cut FROM get_lista ),
     proc_input AS (SELECT ARRAY_CONCAT(ARRAY_AGG(CAST(listado AS INT64)),[44]) array_process

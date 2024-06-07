@@ -15,7 +15,7 @@
 
 
 {% set query_str %}
-    select tag_key, operator, tag_value, account_id, '{{var('v_fecha_start')}}' from_date, '{{var('v_fecha_end')}}' to_date 
+    select tag_key, operator, tag_value, account_id, {{ get_start_date() }} from_date, {{ get_end_date() }} to_date 
     from {{ source('ProcessedData', 'BillingdimtagsNames') }} 
     WHERE origen='{{strorigen}}' AND sustraer=true
           AND provider= '{{strprovider}}'  AND account_id != 'all' AND tag_key = 'all'
@@ -28,7 +28,7 @@
 {% endfor %}
 
 {% set query_wh1 %}
-    select tag_key, operator, tag_value, account_id, '{{var('v_fecha_start')}}' from_date, '{{var('v_fecha_end')}}' to_date 
+    select tag_key, operator, tag_value, account_id, {{ get_start_date() }} from_date, {{ get_end_date() }} to_date 
     from {{ source('ProcessedData', 'BillingdimtagsNames') }} 
     WHERE origen='{{strorigen}}' AND sustraer=true
           AND provider= '{{strprovider}}'  AND account_id != 'all' AND tag_key != 'all'
@@ -41,7 +41,7 @@
 {% endfor %}
 
 {% set query_wh2 %}
-    select tag_key, operator, tag_value, account_id, '{{var('v_fecha_start')}}' from_date, '{{var('v_fecha_end')}}' to_date 
+    select tag_key, operator, tag_value, account_id, {{ get_start_date() }} from_date, {{ get_end_date() }} to_date 
     from {{ source('ProcessedData', 'BillingdimtagsNames') }} 
     WHERE origen='{{strorigen}}' AND sustraer=true
           AND provider= '{{strprovider}}'  AND account_id = 'all' 
@@ -83,10 +83,10 @@ SELECT
       ,'{{var('v_strobservation')}}' as observation 
     FROM {{ source('GoogleCloudBillingDetail', 'BillingDetailExport') }} 
     WHERE
-      PARTITIONTIME >= DATETIME_SUB(CAST(PARSE_DATE('%F', '{{var('v_fecha_start')}}') as TIMESTAMP), INTERVAL 1 DAY)
-      AND PARTITIONTIME <= DATETIME_ADD(cast(PARSE_DATE('%F', '{{var('v_fecha_end')}}') as TIMESTAMP ),INTERVAL 1 DAY)
-      AND TIMESTAMP_TRUNC(usage_start_time, DAY) >=cast(PARSE_DATE('%F', '{{var('v_fecha_start')}}') as timestamp)
-      AND TIMESTAMP_TRUNC(usage_start_time, DAY) <= cast(PARSE_DATE('%F', '{{var('v_fecha_end')}}') as timestamp)
+      PARTITIONTIME >= DATETIME_SUB(CAST(PARSE_DATE('%F', {{ get_start_date() }}) as TIMESTAMP), INTERVAL 1 DAY)
+      AND PARTITIONTIME <= DATETIME_ADD(cast(PARSE_DATE('%F', {{ get_end_date() }}) as TIMESTAMP ),INTERVAL 1 DAY)
+      AND TIMESTAMP_TRUNC(usage_start_time, DAY) >=cast(PARSE_DATE('%F', {{ get_start_date() }}) as timestamp)
+      AND TIMESTAMP_TRUNC(usage_start_time, DAY) <= cast(PARSE_DATE('%F', {{ get_end_date() }}) as timestamp)
       {{long_string_wh}}
     GROUP BY 1, 2, 3, 4, 5, 7, 9, 10, 11, 12
     HAVING total_cost > 0.0

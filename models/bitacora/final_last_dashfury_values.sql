@@ -15,4 +15,4 @@
                     COUNT(1) records,
                     COALESCE(SUM(CAST(total_cost AS FLOAT64)),null,0) total_cost
             FROM {{ ref('final_BillingDashControlBase') }}  
-            WHERE day BETWEEN '{{ var("v_fecha_start") }}' AND  '{{ var("v_fecha_end") }}'
+            WHERE day BETWEEN {{ get_start_date() }} AND  {{ get_end_date() }}
