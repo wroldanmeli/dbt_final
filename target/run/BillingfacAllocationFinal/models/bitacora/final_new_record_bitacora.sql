@@ -28,8 +28,8 @@
       (C.total_cost - D.total_cost) dif_dash_fury_cost,
       (E.records    - F.records)    dif_dash_offfury_records,
       (E.total_cost - F.total_cost) dif_dash_offfury_cost,
-      CAST(DATE(TIMESTAMP_TRUNC(CURRENT_TIMESTAMP(), day, "UTC") - INTERVAL 5 DAY) AS STRING)  date_start_repro,
-      CAST(DATE(TIMESTAMP_TRUNC(CURRENT_TIMESTAMP(), day, "UTC") - INTERVAL 1 DAY) AS STRING) date_end_repro,
+      '2024-06-01'  date_start_repro,
+      '2024-06-04'  date_end_repro,
       G.value struct_fury_dash, 
       H.value struct_offfury_dash
     FROM  `metrics-streams-dev`.`TemporalData`.`final_last_final_values`                A 

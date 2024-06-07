@@ -20,8 +20,8 @@ WITH dif_1 AS (
                 FROM 
                 `metrics-streams-dev`.`ProcessedData`.`BillingDashControlBase`
                 WHERE 
-                day BETWEEN  DATE(TIMESTAMP_TRUNC(CURRENT_TIMESTAMP(), day, "UTC") - INTERVAL 5 DAY) 
-                AND DATE(TIMESTAMP_TRUNC(CURRENT_TIMESTAMP(), day, "UTC") - INTERVAL 1 DAY) 
+                day BETWEEN  '2024-06-01' 
+                AND '2024-06-04'
                 EXCEPT 
                 DISTINCT 
                 SELECT day,
@@ -30,10 +30,10 @@ WITH dif_1 AS (
                     conteo,
                     COALESCE(CAST(total_cost AS FLOAT64),null,0) AS total_cost 
                 FROM 
-                ProcessedData_REPRO_snapshots.BillingDashControlBase_20240606173900 
+                ProcessedData_REPRO_snapshots.BillingDashControlBase_20240607013700 
                 WHERE 
-                day BETWEEN DATE(TIMESTAMP_TRUNC(CURRENT_TIMESTAMP(), day, "UTC") - INTERVAL 5 DAY) 
-                AND DATE(TIMESTAMP_TRUNC(CURRENT_TIMESTAMP(), day, "UTC") - INTERVAL 1 DAY)
+                day BETWEEN '2024-06-01' 
+                AND '2024-06-04'
             ),
             
              dif_2 AS (
@@ -43,10 +43,10 @@ WITH dif_1 AS (
                  conteo,
                  COALESCE(CAST(total_cost AS FLOAT64),null,0) AS total_cost 
         FROM 
-          ProcessedData_REPRO_snapshots.BillingDashControlBase_20240606173900 
+          ProcessedData_REPRO_snapshots.BillingDashControlBase_20240607013700 
         WHERE 
-          day BETWEEN DATE(TIMESTAMP_TRUNC(CURRENT_TIMESTAMP(), day, "UTC") - INTERVAL 5 DAY) 
-          AND DATE(TIMESTAMP_TRUNC(CURRENT_TIMESTAMP(), day, "UTC") - INTERVAL 1 DAY) 
+          day BETWEEN '2024-06-01' 
+          AND '2024-06-04' 
         EXCEPT 
           DISTINCT 
         SELECT day,
@@ -57,8 +57,8 @@ WITH dif_1 AS (
         FROM
           `metrics-streams-dev`.`ProcessedData`.`BillingDashControlBase`
         WHERE 
-          day BETWEEN DATE(TIMESTAMP_TRUNC(CURRENT_TIMESTAMP(), day, "UTC") - INTERVAL 5 DAY) 
-          AND DATE(TIMESTAMP_TRUNC(CURRENT_TIMESTAMP(), day, "UTC") - INTERVAL 1 DAY)
+          day BETWEEN '2024-06-01' 
+          AND '2024-06-04'
       )
         
         SELECT 'LasttoPrev' sentido, * FROM dif_1

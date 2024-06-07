@@ -5,33 +5,33 @@
                 SELECT * 
                 FROM `metrics-streams-dev`.`ProcessedData`.`BillingDashControlBaseOffFury`
                 WHERE 
-                day BETWEEN  DATE(TIMESTAMP_TRUNC(CURRENT_TIMESTAMP(), day, "UTC") - INTERVAL 5 DAY) 
-                AND DATE(TIMESTAMP_TRUNC(CURRENT_TIMESTAMP(), day, "UTC") - INTERVAL 1 DAY) 
+                day BETWEEN  '2024-06-01' 
+                AND '2024-06-04' 
                 EXCEPT 
                 DISTINCT 
                 SELECT * 
                 FROM 
-                ProcessedData_REPRO_snapshots.BillingDashControlBaseOffFury_20240606173900 
+                ProcessedData_REPRO_snapshots.BillingDashControlBaseOffFury_20240607013700 
                 WHERE 
-                day BETWEEN DATE(TIMESTAMP_TRUNC(CURRENT_TIMESTAMP(), day, "UTC") - INTERVAL 5 DAY) 
-                AND DATE(TIMESTAMP_TRUNC(CURRENT_TIMESTAMP(), day, "UTC") - INTERVAL 1 DAY)
+                day BETWEEN '2024-06-01' 
+                AND '2024-06-04'
             ),
             
              dif_2 AS (
                 SELECT * 
                 FROM 
-                ProcessedData_REPRO_snapshots.BillingDashControlBaseOffFury_20240606173900 
+                ProcessedData_REPRO_snapshots.BillingDashControlBaseOffFury_20240607013700 
                 WHERE 
-                day BETWEEN DATE(TIMESTAMP_TRUNC(CURRENT_TIMESTAMP(), day, "UTC") - INTERVAL 5 DAY) 
-                AND DATE(TIMESTAMP_TRUNC(CURRENT_TIMESTAMP(), day, "UTC") - INTERVAL 1 DAY) 
+                day BETWEEN '2024-06-01' 
+                AND '2024-06-04' 
                 EXCEPT 
                 DISTINCT 
                 SELECT *         
                 FROM
                 `metrics-streams-dev`.`ProcessedData`.`BillingDashControlBaseOffFury`
                 WHERE 
-                day BETWEEN DATE(TIMESTAMP_TRUNC(CURRENT_TIMESTAMP(), day, "UTC") - INTERVAL 5 DAY) 
-                AND DATE(TIMESTAMP_TRUNC(CURRENT_TIMESTAMP(), day, "UTC") - INTERVAL 1 DAY)
+                day BETWEEN '2024-06-01' 
+                AND '2024-06-04'
             )
         
         SELECT 'LasttoPrev' sentido, * FROM dif_1

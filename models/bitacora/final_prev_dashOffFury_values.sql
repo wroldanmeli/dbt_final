@@ -16,4 +16,4 @@
                 COUNT(1) records,
                 COALESCE(SUM(CAST(total_cost AS FLOAT64)),null,0) total_cost
           FROM {{prev_snapshot_dashOffFury_name}}
-          WHERE day BETWEEN {{ var("v_fecha_start") }} AND {{ var("v_fecha_end") }}
+          WHERE day BETWEEN '{{ var("v_fecha_start") }}' AND '{{ var("v_fecha_end") }}'

@@ -20,8 +20,8 @@
       (C.total_cost - D.total_cost) dif_dash_fury_cost,
       (E.records    - F.records)    dif_dash_offfury_records,
       (E.total_cost - F.total_cost) dif_dash_offfury_cost,
-      CAST({{var('v_fecha_start')}} AS STRING)  date_start_repro,
-      CAST({{var('v_fecha_end')}} AS STRING) date_end_repro,
+      '{{var('v_fecha_start')}}'  date_start_repro,
+      '{{var('v_fecha_end')}}'  date_end_repro,
       G.value struct_fury_dash, 
       H.value struct_offfury_dash
     FROM  {{ ref('final_last_final_values') }}                A 

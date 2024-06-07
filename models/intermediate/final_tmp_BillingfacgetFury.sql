@@ -42,8 +42,8 @@ SELECT
           '{{var('v_strobservation')}}' observation,
           idproceso  as idprocesoanterior
       FROM {{ source('ProcessedData', 'BillingtabFuryAllocation') }} as BillingtabFury
-      WHERE DATE(datetime) >= {{var('v_fecha_start')}}
-            AND DATE(datetime) <= {{var('v_fecha_end')}}
+      WHERE DATE(datetime) >= '{{var('v_fecha_start')}}'
+            AND DATE(datetime) <= '{{var('v_fecha_end')}}'
             AND NOT EXISTS(SELECT 'X' FROM {{ ref('substract_get_rules_fury')}} as restarfury 
                            WHERE restarfury.tag_key='application_name' AND BillingtabFury.application_name=restarfury.tag_value )
             AND EXISTS(SELECT 'X' FROM {{ ref('final_tmp_process_output')}} as tempprocesos WHERE BillingtabFury.idproceso=tempprocesos.idproceso)

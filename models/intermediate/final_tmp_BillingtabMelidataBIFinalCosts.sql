@@ -42,7 +42,7 @@ SELECT
           '{{var('v_strobservation')}}' observation,
           {{idprocesoant}} AS idprocesoanterior
 FROM {{ source('ProcessedData', 'BillingtabMelidataBIFinalCosts') }}  AS BillingtabMelidata
-      WHERE DATE(datetime) >= {{var('v_fecha_start')}}
-            AND DATE(datetime) <= {{var('v_fecha_end')}}
+      WHERE DATE(datetime) >= '{{var('v_fecha_start')}}'
+            AND DATE(datetime) <= '{{var('v_fecha_end')}}'
             AND EXISTS(SELECT 'X' FROM {{ ref('final_tmp_process_output')}} as tempprocesos WHERE {{idprocesoant}}=tempprocesos.idproceso)
  

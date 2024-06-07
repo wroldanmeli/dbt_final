@@ -6,16 +6,14 @@ del rago de procesamiento#}
   error_if = '>1',
 ) }}
         {%- call statement('get_limit_date', fetch_result=True) -%}
-            SELECT  {{var('v_fecha_start')}};
+            SELECT  '{{var('v_fecha_start')}}';
         {%- endcall -%}
         {%- set date_limit = load_result('get_limit_date')['data'][0][0] -%}
-        {{print(date_limit)}}
 
         {%- call statement('get_end_date', fetch_result=True) -%}
-            SELECT  {{var('v_fecha_end')}};
+            SELECT  '{{var('v_fecha_end')}}';
         {%- endcall -%}
         {%- set date_end = load_result('get_end_date')['data'][0][0] -%}
-        {{print(date_end)}}
 
   lista_proc AS (SELECT idproceso FROM {{ ref('final_tmp_process_output')}}),
 

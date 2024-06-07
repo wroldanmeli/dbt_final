@@ -16,16 +16,16 @@
                 SELECT * 
                 FROM {{ref('final_BillingDashControlBaseOffFury')}}
                 WHERE 
-                day BETWEEN  {{ var("v_fecha_start") }} 
-                AND {{ var("v_fecha_end") }} 
+                day BETWEEN  '{{ var("v_fecha_start") }}' 
+                AND '{{ var("v_fecha_end") }}' 
                 EXCEPT 
                 DISTINCT 
                 SELECT * 
                 FROM 
                 {{prev_snapshot_dashOffFury_name}} 
                 WHERE 
-                day BETWEEN {{ var("v_fecha_start") }} 
-                AND {{ var("v_fecha_end") }}
+                day BETWEEN '{{ var("v_fecha_start") }}' 
+                AND '{{ var("v_fecha_end") }}'
             ),
             
              dif_2 AS (
@@ -33,16 +33,16 @@
                 FROM 
                 {{prev_snapshot_dashOffFury_name}} 
                 WHERE 
-                day BETWEEN {{ var("v_fecha_start") }} 
-                AND {{ var("v_fecha_end") }} 
+                day BETWEEN '{{ var("v_fecha_start") }}' 
+                AND '{{ var("v_fecha_end") }}' 
                 EXCEPT 
                 DISTINCT 
                 SELECT *         
                 FROM
                 {{ref('final_BillingDashControlBaseOffFury')}}
                 WHERE 
-                day BETWEEN {{ var("v_fecha_start") }} 
-                AND {{ var("v_fecha_end") }}
+                day BETWEEN '{{ var("v_fecha_start") }}' 
+                AND '{{ var("v_fecha_end") }}'
             )
         
         SELECT 'LasttoPrev' sentido, * FROM dif_1

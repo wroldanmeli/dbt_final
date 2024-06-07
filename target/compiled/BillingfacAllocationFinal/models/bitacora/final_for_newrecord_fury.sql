@@ -1,6 +1,6 @@
 -- depends_on: (<BigQueryRelation `metrics-streams-dev`.`TemporalData`.`final_last_snapshot`>, <BigQueryRelation `metrics-streams-dev`.`TemporalData`.`final_change_fury`>)
 SELECT   
-                '20240606173900' sufijo, 
+                '20240607013700' sufijo, 
                 ARRAY_AGG(
                 STRUCT (
                     COALESCE(day,null,DATE(CURRENT_DATE())) AS day,

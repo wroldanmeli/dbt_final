@@ -15,7 +15,7 @@
 {% set get_months = namespace(meses = ' ') %}
 
 {% set query_wh1 %}
-    select tag_key, operator, tag_value, account_id, {{var('v_fecha_start')}} from_date, {{var('v_fecha_end')}} to_date 
+    select tag_key, operator, tag_value, account_id, '{{var('v_fecha_start')}}' from_date, '{{var('v_fecha_end')}}' to_date 
     from {{ source('ProcessedData', 'BillingdimtagsNames') }} 
     WHERE origen='{{strorigen}}' AND sustraer=true
           AND provider= '{{strprovider}}'  AND account_id != 'all' AND tag_key != 'all'

@@ -43,8 +43,8 @@ SELECT
           'Test dbt' observation,
           idproceso  as idprocesoanterior
       FROM `metrics-streams-dev`.`ProcessedData`.`BillingtabFuryAllocation` as BillingtabFury
-      WHERE DATE(datetime) >= DATE(TIMESTAMP_TRUNC(CURRENT_TIMESTAMP(), day, "UTC") - INTERVAL 5 DAY)
-            AND DATE(datetime) <= DATE(TIMESTAMP_TRUNC(CURRENT_TIMESTAMP(), day, "UTC") - INTERVAL 1 DAY)
+      WHERE DATE(datetime) >= '2024-06-01'
+            AND DATE(datetime) <= '2024-06-04'
             AND NOT EXISTS(SELECT 'X' FROM `metrics-streams-dev`.`TemporalData`.`substract_get_rules_fury` as restarfury 
                            WHERE restarfury.tag_key='application_name' AND BillingtabFury.application_name=restarfury.tag_value )
             AND EXISTS(SELECT 'X' FROM `metrics-streams-dev`.`TemporalData`.`final_tmp_process_output` as tempprocesos WHERE BillingtabFury.idproceso=tempprocesos.idproceso)

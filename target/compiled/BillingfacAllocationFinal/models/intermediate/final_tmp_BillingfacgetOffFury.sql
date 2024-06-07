@@ -40,7 +40,7 @@ SELECT
               AND BillingtabOffFury.billing_key =BillingtabOffFurysubtract.billing_key
               AND BillingtabOffFury.service_name =BillingtabOffFurysubtract.service_name
               AND BillingtabOffFury.billing_unit =BillingtabOffFurysubtract.billing_unit)
-      WHERE DATE(BillingtabOffFury.datetime) >= DATE(TIMESTAMP_TRUNC(CURRENT_TIMESTAMP(), day, "UTC") - INTERVAL 5 DAY)
-            AND DATE(BillingtabOffFury.datetime) <= DATE(TIMESTAMP_TRUNC(CURRENT_TIMESTAMP(), day, "UTC") - INTERVAL 1 DAY) 
+      WHERE DATE(BillingtabOffFury.datetime) >= '2024-06-01'
+            AND DATE(BillingtabOffFury.datetime) <= '2024-06-04' 
             AND (BillingtabOffFury.total_cost - IFNULL(BillingtabOffFurysubtract.total_cost,0)) > 0 
              AND EXISTS(SELECT 'X' FROM `metrics-streams-dev`.`TemporalData`.`final_tmp_process_output` as tempprocesos WHERE BillingtabOffFury.idproceso=tempprocesos.idproceso)

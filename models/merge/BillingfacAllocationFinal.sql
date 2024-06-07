@@ -15,7 +15,7 @@
               "billing_concept",
               "idprocesoanterior"
         ],
-    pre_hook=before_begin("DELETE FROM ProcessedData.BillingfacAllocationFinal WHERE idprocesoanterior IN (SELECT idproceso FROM  {{ ref('final_tmp_process_output')}})  AND DATE(datetime) BETWEEN {{var('v_fecha_start') }} AND {{var('v_fecha_end')}} ")
+    pre_hook=before_begin("DELETE FROM ProcessedData.BillingfacAllocationFinal WHERE idprocesoanterior IN (SELECT idproceso FROM  {{ ref('final_tmp_process_output')}})  AND DATE(datetime) BETWEEN '{{var('v_fecha_start') }}' AND '{{var('v_fecha_end')}}' ")
     )
 }}
 

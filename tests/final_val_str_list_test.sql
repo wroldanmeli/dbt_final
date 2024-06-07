@@ -24,4 +24,4 @@
         NOT REGEXP_CONTAINS(lista_in, '[0-9]') 
         OR NOT REGEXP_CONTAINS(lista_in, r'\[') 
         OR NOT REGEXP_CONTAINS(lista_in, r'\]')
-        OR {{var('v_fecha_start')}} > {{var('v_fecha_end')}} 
+        OR '{{var('v_fecha_start')}}' > '{{var('v_fecha_end')}}' 

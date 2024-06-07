@@ -41,7 +41,7 @@ SELECT
           '{{var('v_strobservation')}}' observation,
           CAST('{{idprocesoant}}' AS INT64)  as idprocesoanterior
       FROM {{ source('ProcessedData', 'BillingtabGENAI') }}  AS BillingtabGENAI
-      WHERE DATE(datetime) >= {{var('v_fecha_start')}}
-            AND DATE(datetime) <= {{var('v_fecha_end')}}
+      WHERE DATE(datetime) >= '{{var('v_fecha_start')}}'
+            AND DATE(datetime) <= '{{var('v_fecha_end')}}'
             AND EXISTS(SELECT 'X' FROM {{ ref('final_tmp_process_output')}} as tempprocesos WHERE {{idprocesoant}}=tempprocesos.idproceso)
            

@@ -25,10 +25,8 @@ clean-targets:         # directories to be removed by `dbt clean`
 
 vars:
   default_high_dttm: '2030-12-31'
-  v_fecha_start: DATE(TIMESTAMP_TRUNC(CURRENT_TIMESTAMP(), day, "UTC") - INTERVAL 5 DAY)
-  v_fecha_end: DATE(TIMESTAMP_TRUNC(CURRENT_TIMESTAMP(), day, "UTC") - INTERVAL 1 DAY)
-  s_fecha_start: CAST(DATE(TIMESTAMP_TRUNC(CURRENT_TIMESTAMP(), day, "UTC") - INTERVAL 5 DAY) AS STRING)
-  s_fecha_end: CAST(DATE(TIMESTAMP_TRUNC(CURRENT_TIMESTAMP(), day, "UTC") - INTERVAL 1 DAY) AS STRING)
+  #v_fecha_start: DATE(TIMESTAMP_TRUNC(CURRENT_TIMESTAMP(), day, "UTC") - INTERVAL 5 DAY)
+  #v_fecha_end: DATE(TIMESTAMP_TRUNC(CURRENT_TIMESTAMP(), day, "UTC") - INTERVAL 1 DAY)
   v_excess_mod: MOD(CAST(EXTRACT(HOUR FROM TIMESTAMP_TRUNC(CURRENT_TIMESTAMP(), hour, "UTC")) AS INT64) ,4)
   v_fecha_start_dash  :  PARSE_DATE('%F', '2022-01-01')
   v_start_date: 'None'
